@@ -8,31 +8,37 @@
     <artifactId>com.learn.flink</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <flink-version>1.14.2</flink-version>
+        <scala-version>2.11</scala-version>
+    </properties>
+
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-core -->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-java</artifactId>
-            <version>1.9.1</version>
+            <artifactId>flink-core</artifactId>
+            <version>${flink-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-java_2.11</artifactId>
-            <version>1.9.1</version>
+            <artifactId>flink-streaming-java_${scala-version}</artifactId>
+            <version>${flink-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-clients_2.11</artifactId>
-            <version>1.9.1</version>
+            <artifactId>flink-clients_${scala-version}</artifactId>
+            <version>${flink-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka_2.11</artifactId>
-            <version>1.9.1</version>
+            <artifactId>flink-connector-kafka_${scala-version}</artifactId>
+            <version>${flink-version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-avro</artifactId>
-            <version>1.9.0</version>
+            <version>${flink-version}</version>
         </dependency>
     </dependencies>
 
