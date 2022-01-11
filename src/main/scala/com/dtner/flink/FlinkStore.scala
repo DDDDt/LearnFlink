@@ -1,6 +1,7 @@
 package com.dtner.flink
 
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
+import com.dtner.flink.untils.DataSourceUtils
+import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, createTypeInformation}
 
 /**
  * @program: com.learn.flink
@@ -10,12 +11,25 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
  * */
 object FlinkStore {
 
+  /**
+   * 启动类
+   * @param args
+   */
   def main(args: Array[String]): Unit = {
 
+    // flink 启动环境
     val env = StreamExecutionEnvironment.getExecutionEnvironment
 
+    val datas = DataSourceUtils.getArrayDatas()
 
+    // source
+    val source = env.fromElements(datas:_*).name("source-1").uid("source-1")
 
+    // keyby
+    source.keyBy(k => k.name).print()
+
+    // flink 执行
+    env.execute("flink-store")
 
   }
 
