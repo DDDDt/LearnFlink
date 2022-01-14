@@ -2,8 +2,8 @@ package com.dtner.flink.operator
 
 import org.apache.flink.api.common.functions.RichMapFunction
 import org.apache.flink.api.common.state.{ValueState, ValueStateDescriptor}
-import org.apache.flink.api.scala.typeutils.Types
 import org.apache.flink.configuration.Configuration
+import com.dtner.flink.entity.ProductInfo
 
 /**
  * @program: com.learn.flink
@@ -11,7 +11,7 @@ import org.apache.flink.configuration.Configuration
  * @author: dt
  * @create: 2022-01-12
  * */
-class MapStateOperator extends RichMapFunction[Product, Int]{
+class MapStateOperator extends RichMapFunction[ProductInfo, Int]{
 
   @transient private var valueState: ValueState[Int] = _
 
@@ -20,7 +20,7 @@ class MapStateOperator extends RichMapFunction[Product, Int]{
    * @param value
    * @return
    */
-  override def map(value: Product): Int = {
+  override def map(value: ProductInfo): Int = {
     if (valueState.value() == null) {
       valueState.update(value.productArity)
       value.productArity
@@ -34,7 +34,7 @@ class MapStateOperator extends RichMapFunction[Product, Int]{
    * @param parameters
    */
   override def open(parameters: Configuration): Unit = {
-    val valueStateDesc = new ValueStateDescriptor("mapvalue-state", Types.INT)
+    val valueStateDesc = new ValueStateDescriptor[Int]("mapvalue-state", classOf[Int])
     valueState = getRuntimeContext.getState(valueStateDesc)
   }
 

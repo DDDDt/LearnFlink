@@ -4,7 +4,7 @@ import org.apache.flink.api.common.state.{MapState, MapStateDescriptor}
 import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.ProcessFunction
 import org.apache.flink.util.Collector
-import com.dtner.flink.entity.Product
+import com.dtner.flink.entity.ProductInfo
 
 import scala.collection.JavaConverters.iterableAsScalaIterableConverter
 
@@ -14,7 +14,7 @@ import scala.collection.JavaConverters.iterableAsScalaIterableConverter
  * @author: dt
  * @create: 2022-01-13
  * */
-class PseudoWindow extends ProcessFunction[Product, Int]{
+class PseudoWindow extends ProcessFunction[ProductInfo, Int]{
 
   /**
    * 保存状态
@@ -31,7 +31,7 @@ class PseudoWindow extends ProcessFunction[Product, Int]{
    * @param ctx
    * @param out
    */
-  override def processElement(value: Product, ctx: ProcessFunction[Product, Int]#Context, out: Collector[Int]): Unit = {
+  override def processElement(value: ProductInfo, ctx: ProcessFunction[ProductInfo, Int]#Context, out: Collector[Int]): Unit = {
 
     if (!mapState.contains(value.name)) {
       mapState.put(value.name, value.shelfLife)
@@ -50,7 +50,7 @@ class PseudoWindow extends ProcessFunction[Product, Int]{
    * @param ctx
    * @param out
    */
-  override def onTimer(timestamp: Long, ctx: ProcessFunction[Product, Int]#OnTimerContext, out: Collector[Int]): Unit = {
+  override def onTimer(timestamp: Long, ctx: ProcessFunction[ProductInfo, Int]#OnTimerContext, out: Collector[Int]): Unit = {
 
     val sumValue = timeMapState.values().asScala.sum
     out.collect(sumValue)

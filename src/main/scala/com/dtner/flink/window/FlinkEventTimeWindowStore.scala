@@ -1,6 +1,6 @@
 package com.dtner.flink.window
 
-import com.dtner.flink.entity.Product
+import com.dtner.flink.entity.ProductInfo
 import com.dtner.flink.process.WindowMaxProcess
 import com.dtner.flink.untils.DataSourceUtils
 import org.apache.flink.api.common.eventtime.{SerializableTimestampAssigner, WatermarkStrategy}

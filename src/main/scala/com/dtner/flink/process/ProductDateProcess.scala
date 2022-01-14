@@ -1,6 +1,6 @@
 package com.dtner.flink.process
 
-import com.dtner.flink.entity.Product
+import com.dtner.flink.entity.ProductInfo
 import org.apache.flink.streaming.api.functions.ProcessFunction
 import org.apache.flink.util.Collector
 
@@ -10,7 +10,7 @@ import org.apache.flink.util.Collector
  * @author: dt
  * @create: 2022-01-11
  * */
-class ProductDateProcess extends ProcessFunction[Product, Long]{
+class ProductDateProcess extends ProcessFunction[ProductInfo, Long]{
 
   /**
    * 处理巨日逻辑
@@ -18,7 +18,7 @@ class ProductDateProcess extends ProcessFunction[Product, Long]{
    * @param ctx
    * @param out
    */
-  override def processElement(value: Product, ctx: ProcessFunction[Product, Long]#Context, out: Collector[Long]): Unit = {
+  override def processElement(value: ProductInfo, ctx: ProcessFunction[ProductInfo, Long]#Context, out: Collector[Long]): Unit = {
 
     out.collect(value.productionDate)
 

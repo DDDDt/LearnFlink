@@ -6,4 +6,4 @@ package com.dtner.flink.entity
  * @param shelfLife 保质期
  * @param productionDate 生产日期
  */
-case class Product(name: String, shelfLife: Int, productionDate: Long)
+case class ProductInfo(name: String, shelfLife: Int, productionDate: Long)

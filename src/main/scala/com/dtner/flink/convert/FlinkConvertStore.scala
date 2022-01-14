@@ -24,10 +24,10 @@ object FlinkConvertStore {
     val stream = env.fromElements(arrayDatas: _*).uid("flink-source").name("flink-source")
 
     // etl 转换
-/*    val convertStream = stream.keyBy(_.name).map(new MapStateOperator())
+    val convertStream = stream.keyBy(_.name).map(new MapStateOperator())
       .uid("flink-convert").name("flink-convert")
 
-    convertStream.print()*/
+    convertStream.print()
 
     env.execute("flink-convert-store")
 
