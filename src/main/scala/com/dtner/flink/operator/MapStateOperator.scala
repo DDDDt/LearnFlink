@@ -3,7 +3,8 @@ package com.dtner.flink.operator
 import org.apache.flink.api.common.functions.RichMapFunction
 import org.apache.flink.api.common.state.{ValueState, ValueStateDescriptor}
 import org.apache.flink.configuration.Configuration
-import com.dtner.flink.entity.ProductInfo
+import com.dtner.flink.entity.{ConfigKeyProperties, ProductInfo}
+import org.apache.flink.api.java.utils.ParameterTool
 
 /**
  * @program: com.learn.flink
@@ -34,8 +35,10 @@ class MapStateOperator extends RichMapFunction[ProductInfo, Int]{
    * @param parameters
    */
   override def open(parameters: Configuration): Unit = {
+    val parameters: ParameterTool = getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
     val valueStateDesc = new ValueStateDescriptor[Int]("mapvalue-state", classOf[Int])
     valueState = getRuntimeContext.getState(valueStateDesc)
+    valueState.update(parameters.getInt(ConfigKeyProperties.timeduartition))
   }
 
   override def close(): Unit = {
