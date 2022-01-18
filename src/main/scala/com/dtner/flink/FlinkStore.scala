@@ -32,8 +32,6 @@ object FlinkStore {
     // 注册全局参数, 可以在任意富函数中访问参数
     env.getConfig.setGlobalJobParameters(parameterTool)
 
-
-
     val datas = DataSourceUtils.getArrayDatas()
 
     // source
