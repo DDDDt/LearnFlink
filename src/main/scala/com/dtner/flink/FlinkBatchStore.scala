@@ -1,8 +1,12 @@
 package com.dtner.flink
 
+import com.dtner.flink.sink.KafkaSinkObj
 import com.dtner.flink.untils.{DataSourceUtils, ParameterToolUtils}
 import org.apache.flink.api.common.RuntimeExecutionMode
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, createTypeInformation}
+import org.json4s.{DefaultFormats, Extraction}
+import org.json4s.jackson.JsonMethods
+
 
 /**
  * @program: com.learn.flink
@@ -10,7 +14,9 @@ import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, createT
  * @author: dt
  * @create: 2022-01-08
  * */
-object FlinkStore {
+object FlinkBatchStore {
+
+  implicit val formats = DefaultFormats
 
   /**
    * 启动类
@@ -48,10 +54,10 @@ object FlinkStore {
 
 
     // keyby
-    stream.keyBy(k => k.name).print()
+    stream.keyBy(k => k.name).map(k => JsonMethods.compact(Extraction.decompose(k))).sinkTo(KafkaSinkObj.getKafkaProducer(parameterTool))
 
     // flink 执行
-    env.execute("flink-store")
+    env.execute("flink-batch-job")
 
   }
 
