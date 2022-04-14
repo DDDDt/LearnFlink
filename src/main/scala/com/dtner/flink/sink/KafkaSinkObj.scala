@@ -13,6 +13,11 @@ import org.apache.flink.connector.kafka.sink.{KafkaRecordSerializationSchema, Ka
  * */
 object KafkaSinkObj {
 
+  /**
+   * 获取 kafka sink
+   * @param parameterTool
+   * @return
+   */
   def getKafkaProducer(parameterTool: ParameterTool): KafkaSink[String] = {
 
     KafkaSink.builder[String]()

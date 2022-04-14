@@ -30,6 +30,7 @@ object FlinkStreamStore {
       .name("flink-kafka-source")
 
     val mapStream = stream.map(_.toUpperCase)
+
       .uid("flink-operator").name("flink-operator")
 
     mapStream.print()
