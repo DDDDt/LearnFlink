@@ -10,7 +10,7 @@
 
     <properties>
         <flink-version>1.14.4</flink-version>
-        <log4j-version>2.17.2</log4j-version>
+        <log4j-version>2.25.3</log4j-version>
         <json4s-version>4.0.3</json4s-version>
         <scala.binary.version>2.11</scala.binary.version>
         <scala.version>2.11.12</scala.version>
